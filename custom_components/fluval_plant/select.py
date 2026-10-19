@@ -24,5 +24,13 @@ class FluvalModeSelect(FluvalEntity, SelectEntity):
     def current_option(self) -> str | None:
         return (self.coordinator.data or {}).get("mode")
 
+    @property
+    def extra_state_attributes(self) -> dict | None:
+        data = self.coordinator.data or {}
+        return {
+            "channels_r_b_cw_ww_a": data.get("channels"),
+            "pro_schedule": data.get("pro_schedule"),
+        }
+
     async def async_select_option(self, option: str) -> None:
         await self.coordinator.async_command([CMD_MODE[option]])

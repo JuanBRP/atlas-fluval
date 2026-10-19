@@ -127,7 +127,25 @@ class FluvalPlantDevice:
                 except Exception:  # noqa: BLE001
                     _LOGGER.debug("%s: disconnect raised", self.name, exc_info=True)
 
+        _LOGGER.debug("%s status: %s", self.name, raw)
         return {
             "power": raw.get(KEY_POWER),
             "mode": MODE_BY_VALUE.get(raw.get(KEY_MODE)),
+            "channels": [raw.get(k) for k in range(3, 8)],
+            "pro_schedule": _pro_points(raw.get(13)),
         }
+
+
+def _pro_points(blob: Any) -> list[str] | None:
+    """Decode the Pro schedule blob: count byte + 7-byte points (h, m, 5 levels)."""
+    if not isinstance(blob, (bytes, bytearray)) or not blob:
+        return None
+    count = blob[0]
+    points = []
+    for i in range(count):
+        chunk = blob[1 + 7 * i : 8 + 7 * i]
+        if len(chunk) < 7:
+            break
+        h, m, *levels = chunk
+        points.append(f"{h:02d}:{m:02d} " + ",".join(str(v) for v in levels))
+    return points
