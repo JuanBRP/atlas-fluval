@@ -1,0 +1,17 @@
+{
+  "domain": "fluval_plant",
+  "name": "Fluval Plant 4.0",
+  "bluetooth": [
+    { "local_name": "Plant4.0_*" },
+    { "local_name": "PlantPro_*" }
+  ],
+  "codeowners": ["@JuanBRP"],
+  "config_flow": true,
+  "dependencies": ["bluetooth_adapters"],
+  "documentation": "https://github.com/JuanBRP/atlas-fluval",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/JuanBRP/atlas-fluval/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

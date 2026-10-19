@@ -1,0 +1,28 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "description": "Pick an aquarium light Home Assistant can see over Bluetooth.",
+        "data": { "address": "Light" }
+      },
+      "bluetooth_confirm": {
+        "description": "Add {name}? Close the FluvalConnect app first — the light talks to one device at a time."
+      }
+    },
+    "abort": {
+      "already_configured": "This light is already set up.",
+      "no_devices_found": "No Fluval lights in Bluetooth range. Close the FluvalConnect app and try again."
+    }
+  },
+  "entity": {
+    "switch": { "power": { "name": "Power" } },
+    "select": {
+      "mode": {
+        "name": "Mode",
+        "state": { "manual": "Manual", "auto": "Auto", "pro": "Pro" }
+      }
+    },
+    "button": { "resume_schedule": { "name": "Resume schedule" } }
+  }
+}
